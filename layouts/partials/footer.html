@@ -1,0 +1,17 @@
+{{/**
+   * Footer Template
+	 *
+	 * The footer for the site.
+   * It is used on every page.
+   *
+   * @version 1.0.0
+	 *
+   */}}
+{{ if .Site.Data.config.layout_options.footer.pre_footer_blocks }}
+<div class="above-footer-content">
+  {{ partial "blocks/blocks" (dict "page" .Page "site" .Site "content" .Site.Data.config.layout_options.footer.pre_footer_blocks) }}
+</div>
+{{ end }}
+<footer class="site-footer">
+     {{ partial "blocks/blocks" (dict "page" .Page "site" .Site "content" .Site.Data.config.layout_options.footer.footer_blocks ) }}
+</footer>

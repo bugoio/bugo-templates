@@ -1,0 +1,5 @@
+{{- $name := .Site.Title -}}
+{{- $url := .Site.BaseURL | absURL -}}
+{{- $logo :=  .Site.Data.organization.logos.seo_logo | absURL -}}
+{{- $.Scratch.Add "organization" (dict "@context" "http://schema.org" "@type" "Organization" "url" $url "logo" $logo "name" $name ) -}}
+{{- $.Scratch.Get "organization" | jsonify -}}

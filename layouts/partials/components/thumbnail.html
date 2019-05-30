@@ -1,0 +1,51 @@
+{{ if and (or (.page.Params.featured_image.image) (.site.Data.config.media.default_featured_image.image)) ( ne ( in .site.Data.config.media.default_featured_image.excluded_pages .page.File.Path ) true )  }}
+{{/* add page's featured image */}}
+<div class="thumbnail">
+  <div class="figure-container">
+    <a href="{{.page.Permalink | relURL }}" aria-label="Read more about {{ .page.Title }}" tabindex=”0”>
+      <figure>
+        {{ if and ( .page.Params.featured_image.image ) }}
+        {{ $image := .page.Params.featured_image.image }}
+        {{ $alt := humanize (index (split (path.Base $image) ".") 0) }}
+        <div class="img-container">
+          <img 
+            class="img-fluid" 
+            src="{{ partial "utilities/image-url" ( dict "page" .page "site" .site "url" $image "transform" "c_fill,e_unsharp_mask:100,g_faces:center,h_480,w_640" ) }}"
+            {{ if .page.Params.featured_image.title }} 
+            title="{{ .page.Params.featured_image.title }}"
+            {{ else }}
+            title="{{ .page.Title }}"
+            {{ end }}
+            alt="{{ $alt }}" 
+          />
+        </div>
+        <!-- ( ne ( in .site.Data.config.media.default_featured_image.excluded_pages .page ) false ) -->
+        {{ else if .site.Data.config.media.default_featured_image.image  }}
+        {{ $image := .site.Data.config.media.default_featured_image.image }}
+        {{ $alt := humanize (index (split (path.Base $image) ".") 0) }}
+        <div class="img-container">
+          <img 
+            class="img-fluid" 
+            src="{{ partial "utilities/image-url" ( dict "page" .page "site" .site "url" $image "transform" "c_fill,e_unsharp_mask:100,g_faces:center,h_498,w_1024" ) }}"
+            srcset="
+              {{ partial "utilities/image-url" ( dict "page" .page "site" .site "url" $image "transform" "c_fill,e_unsharp_mask:100,g_faces:center,h_350,w_500" ) | safeURL }} 500w
+              {{ partial "utilities/image-url" ( dict "page" .page "site" .site "url" $image "transform" "c_fill,e_unsharp_mask:100,g_faces:center,h_700,w_1440" ) | safeURL }} 1440w
+            "
+            {{ if .site.Data.config.media.default_featured_image.title }} 
+            title="{{ .site.Data.config.media.default_featured_image.title }}"
+            {{ else }}
+            title="{{ .page.Title }}"
+            {{ end }}
+            alt="{{ $alt }}" 
+            />
+        </div>
+        {{ end }}
+        {{ if isset .media "caption" }}
+        <figcaption>{{ .media.caption | safeHTML | markdownify }}</figcaption>
+        {{ end }}
+      </figure>
+    </a>
+    {{/*  {{ partial "components/figure" ( dict "page" .page "media" .page.Params.featured_image "transform" "c_fill,g_faces:center,h_700,w_1440") }}  */}}
+  </div>
+</div>
+{{ end }}

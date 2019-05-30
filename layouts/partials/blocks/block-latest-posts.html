@@ -1,0 +1,45 @@
+{{/**
+   * Latest Posts Block
+   *
+   * Block for displaying the website's latest blog posts on a landing page
+   *
+   * @version 1.0.0
+   */}}
+
+  {{ if .block.block_options.show_title }}
+  <div class="container">
+    <h2 class="block-title">{{ .block.title }}</h2>
+  </div>
+  {{ end }}
+  <div class="container">
+    <div class="row latest-posts-{{ .block.show_quantity }}">
+      {{ $page := .page }}
+      {{ $posts := where .site.RegularPages "Section" "posts" }}
+      {{ $site := .site }}
+      {{ $block := .block }}
+      {{ range first .block.show_quantity $posts  }}
+      <div class="item">
+        <article class="d-flex">
+          {{ if $block.show_featured_image }}
+          <div class="thumbnail">
+            {{ if .Params.featured_image.image }}
+            {{ partial "components/figure" ( dict "page" $page "site" $site "media" .Params.featured_image "transform" "c_fill,w_400,h_225,ar_16:9") }}
+            {{ end }}
+          </div>
+          {{ end }}
+          <header>
+            <time>{{ .Date.Format "January _2, 2006" }}</time>
+            {{ if $block.block_options.show_title }}
+            <h3><a href="{{ .Permalink | relURL }}">{{ .Title}}</a></h3>
+            {{ else }}
+            <h3><a href="{{ .Permalink | relURL }}">{{ .Title}}</a></h3>
+            {{ end }}
+          </header>
+          <div class="summary">
+            {{ .Summary | markdownify }}
+          </div>
+        </article>
+      </div>
+      {{ end }}
+    </div>
+  </div>

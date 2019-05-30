@@ -1,0 +1,47 @@
+{{/**
+   * Default List Template
+	 *
+	 * The default list for the site.
+   *
+   * @version 1.0.0
+	 *
+   */}}
+
+   {{ define "main" }}
+   <main class="">
+     <h1>{{ .Title }}</h1>
+     {{ .Content }}
+     {{ if gt (len .Data.Pages) 0 }}
+     {{ $site := .Site }}
+      <p class="post-count">{{ len .Data.Pages }} {{ .Section | pluralize }} found. </p>
+        {{ range $index, $page := .Data.Pages }}
+        {{ $page := . }}
+        <div class="row mb-5" data-aos="slide-right">
+          <div class="col-12 order-2 order-md-1 {{ with $page.Section }}{{ . | urlize }}-item{{ end }}">
+            {{ partial "components/thumbnail" (dict "page" . "site" $site ) }}
+            <article>
+              <header>
+                <time>{{ .Date.Format "January _2, 2006" }}</time>
+                <h2><a href="{{ .Permalink | relURL }}">{{ .Title}}</a></h2>
+              </header>
+              <div>
+                {{ .Summary | markdownify }}
+              </div>
+            </article>
+          </div>
+        </div>
+        {{ end }}
+      <div class="pagination mt-4">
+        {{ partial "pagination.html" . }}
+      </div>
+     {{ end }}
+   </main>
+   {{ end }}
+
+   {{ define "aside" }}
+    {{ if .Params.show_sidebar }}
+     <aside class="sidebar">
+        {{ partial "widgets/widgets" (dict "page" .Page "site" .Site "content" .Site.Data.config.sidebar_widgets.widgets ) }}
+     </aside>
+     {{ end }}
+   {{ end }}

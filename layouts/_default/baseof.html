@@ -1,0 +1,90 @@
+{{/**
+   * Base Template
+	 *
+	 * The default layout for the site, which is extended by all other layouts.
+   *
+   * @version 1.0.0
+	 *
+   */}}
+{{ .Scratch.Set "sidebar" "sidebar" }}
+{{ if or ( eq .IsHome true ) | (eq .Params.show_sidebar false) }}
+  {{ .Scratch.Set "sidebar" "" }}
+{{ end }}
+
+<!doctype html>
+<html class="" lang="en">
+  {{ partial "head" . }}
+
+  <body class="{{ anchorize .Page.Kind }} {{ anchorize .Params.layout }} {{ anchorize .Params.layout }}-{{ anchorize .Title }}  section-{{ anchorize .Section }} type-{{ anchorize .Page.Type }} {{ .Scratch.Get "sidebar" }}">
+    {{ partial "icons/icon_sprite" . }}
+    {{- partial "header" . }}
+    {{ if ne .Site.Data.config.media.default_featured_image.show_featured_image_in_content true }}
+      {{- if .Params.featured_image.template -}}
+        {{/* use featured image template system */}}
+        {{- $fi_template := printf "components/featured-image-%s" .Params.featured_image.template | urlize -}}
+        {{- partial $fi_template . -}}
+      {{- else -}}
+        {{/* use deprecated featured image */}}
+        {{- partial "components/featured-image" . -}}
+      {{- end -}}
+    {{ end }}
+    {{ if and (not .IsHome) (ne .Params.layout "landing") (.Site.Data.config.show_breadcrumbs) }}
+    <div class="breadcrumbs w-100">
+      {{ partial "components/breadcrumbs" . }}
+    </div>
+    {{ end }}
+    <div class="wrap container">
+      {{ block "main" . }}{{ end }}
+      {{ block "aside" . }}{{ end }}
+    </div>
+    {{ if .Site.Data.config.layout_options.footer.footer_template }}
+      {{/* use footer template system */}}
+      {{ $footer := printf "footer-%s" .Site.Data.config.layout_options.footer.footer_template | urlize }}
+      {{ partial $footer . }}
+    {{ else }}
+      {{/* use flexible footer */}}
+      {{ partial "footer" . }}
+    {{ end }}
+    
+    {{ block "footer" . }}{{ end }}
+    {{ if .Site.Data.organization.footer_dislaimer }}
+    <div class="footer-disclaimer py-4{{ with .Site.Data.config.layout_options.footer.color_scheme }} {{ . | urlize }} {{ end }}">
+      <div class="container">
+        {{ .Site.Data.organization.footer_dislaimer | markdownify }}
+      </div>
+    </div>
+    {{ end }}
+    <!-- Javascript -->
+    {{ $js := resources.Get "js/app.js" }}
+    {{ $secureJS := $js | resources.Fingerprint "sha512" }}
+    <script defer src="{{ $secureJS.Permalink | absURL }}" type="text/javascript"></script>
+    <!-- <script type="text/javascript">
+      var lastLink = document.getElementsByTagName('link')[0];
+      /* Bootstrap CSS File */
+      var bootstrapStyles = document.createElement('link');
+      bootstrapStyles.rel = 'stylesheet';
+      bootstrapStyles.href = '/assets/css/bootstrap.css';
+      bootstrapStyles.type = 'text/css';
+      lastLink = document.getElementsByTagName('link')[0];
+      lastLink.parentNode.appendChild(bootstrapStyles, lastLink);
+
+      /* Theme CSS File */
+      var themeStyles = document.createElement('link');
+      themeStyles.rel = 'stylesheet';
+      themeStyles.href = '/assets/css/theme.css';
+      themeStyles.type = 'text/css';
+      lastLink = document.getElementsByTagName('link')[0];
+      lastLink.parentNode.appendChild(themeStyles, lastLink);
+
+      /* custom CSS File */
+      var customStyles = document.createElement('link');
+      customStyles.rel = 'stylesheet';
+      customStyles.href = '/assets/css/custom.css';
+      customStyles.type = 'text/css';
+      lastLink = document.getElementsByTagName('link')[0];
+      lastLink.parentNode.appendChild(customStyles, lastLink);
+    </script> -->
+    {{ template "_internal/google_analytics_async.html" . }}
+  </body>
+
+</html>

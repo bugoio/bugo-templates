@@ -1,0 +1,14 @@
+{{- $.Scratch.Add "mainEntityOfPage" (dict "@type" "WebPage" "@id" (.Permalink | absURL )) }}
+{{- $headline := .Title -}}
+{{ $image := partial "utilities/image-url" (dict "page" .Page "url" .Params.featured_image.image "transform" "c_fill,h_480,w_640") }}
+{{- if len .Content -}}
+  {{- $.Scratch.Add "articleBody" .Content }}
+{{- end -}}
+{{- $.Scratch.Add "author" (dict "@type" "organization" "name" .Site.Title ) -}}
+{{- $pubDate := .Page.Date.Format "2006-01-02T15:04:05-07:00" -}}
+{{- $modDate := .Page.Lastmod.Format "2006-01-02T15:04:05-07:00" -}}
+{{- $logo :=  .Site.Data.organization.logos.seo_logo | absURL -}}
+{{- $.Scratch.Add "logo" (dict "@type" "ImageObject" "url" $logo ) -}}
+{{- $.Scratch.Add "publisher" (dict "@type" "Organization" "name" .Site.Title "logo" ($.Scratch.Get "logo") ) -}}
+{{- $.Scratch.Add "article" (dict "publisher" ($.Scratch.Get "publisher") "dateModified" $modDate "datePublished" $pubDate "author" ($.Scratch.Get "author") "articleBody" ($.Scratch.Get "articleBody") "@context" "http://schema.org" "@type" "Article" "headline" $headline "mainEntityOfPage" ($.Scratch.Get "mainEntityOfPage") "image" $image ) -}}
+{{- $.Scratch.Get "article" | jsonify -}}
