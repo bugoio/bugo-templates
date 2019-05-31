@@ -55,35 +55,7 @@
     </div>
     {{ end }}
     <!-- Javascript -->
-    {{ $js := resources.Get "js/app.js" }}
-    {{ $secureJS := $js | resources.Fingerprint "sha512" }}
-    <script defer src="{{ $secureJS.Permalink | absURL }}" type="text/javascript"></script>
-    <!-- <script type="text/javascript">
-      var lastLink = document.getElementsByTagName('link')[0];
-      /* Bootstrap CSS File */
-      var bootstrapStyles = document.createElement('link');
-      bootstrapStyles.rel = 'stylesheet';
-      bootstrapStyles.href = '/assets/css/bootstrap.css';
-      bootstrapStyles.type = 'text/css';
-      lastLink = document.getElementsByTagName('link')[0];
-      lastLink.parentNode.appendChild(bootstrapStyles, lastLink);
-
-      /* Theme CSS File */
-      var themeStyles = document.createElement('link');
-      themeStyles.rel = 'stylesheet';
-      themeStyles.href = '/assets/css/theme.css';
-      themeStyles.type = 'text/css';
-      lastLink = document.getElementsByTagName('link')[0];
-      lastLink.parentNode.appendChild(themeStyles, lastLink);
-
-      /* custom CSS File */
-      var customStyles = document.createElement('link');
-      customStyles.rel = 'stylesheet';
-      customStyles.href = '/assets/css/custom.css';
-      customStyles.type = 'text/css';
-      lastLink = document.getElementsByTagName('link')[0];
-      lastLink.parentNode.appendChild(customStyles, lastLink);
-    </script> -->
+    <script defer src="/js/main.js" type="text/javascript"></script>
     {{ template "_internal/google_analytics_async.html" . }}
   </body>
 
