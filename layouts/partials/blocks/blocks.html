@@ -13,7 +13,7 @@
 {{ range $index, $block := .content }}
 {{ $path := printf "blocks/%s" .template }}
 <section 
-  id="{{ $block.title | urlize }}-block" 
+  id="{{ $block.title | anchorize }}-block" 
   class="block {{ .template }}
   {{ if $block.block_options.full_width }} full-width {{ end }}
   {{ if $block.block_options.content_full_width }} content-full-width {{ end }}
