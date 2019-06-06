@@ -8,7 +8,7 @@
    */}}
 
 {{ define "main" }}
- <main class="">
+ <main id="main" class="">
    <h1 {{ if .Page.IsHome }}class="sr-only"{{ end }}>{{ .Title }}</h1>
    {{ .Content }}
    {{ partial "blocks/blocks" (dict "page" .Page "site" .Site "content" .Params.content ) }}
