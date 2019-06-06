@@ -15,8 +15,10 @@
 <header class="site-header">
   <div class="container">
     <div class="site-header-logo">
-      <a href="/" title="Go to the home page" tabindex="0">
-        <span class="sr-only">Go to the home page</span>
+      <a class="sr-only" href="/" title="Go to the {{ .Site.Title }} home page" tabindex="0">
+        Go to the {{ .Site.Title }} home page
+      </a>
+      <a aria-hidden="true" href="/" title="Go to the home page" tabindex="0">
         {{ if .Site.Data.organization.logos.header_logo.image }}
         <figure>
           <div class="img-container">
