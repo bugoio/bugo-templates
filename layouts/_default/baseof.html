@@ -16,7 +16,7 @@
   {{ partial "head" . }}
 
   <body class="{{ anchorize .Page.Kind }} {{ anchorize .Params.layout }} {{ anchorize .Params.layout }}-{{ anchorize .Title }}  section-{{ anchorize .Section }} type-{{ anchorize .Page.Type }} {{ .Scratch.Get "sidebar" }}">
-    <a class="sr-only" href="#main" tabindex="0">Go to Content</a>
+    <a class="sr-only" aria-label="Go to Content" href="#main" tabindex="0">Go to Content</a>
     {{ partial "icons/icon_sprite" . }}
     {{- partial "header" . }}
     {{ if ne .Site.Data.config.media.default_featured_image.show_featured_image_in_content true }}
