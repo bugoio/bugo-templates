@@ -15,9 +15,11 @@
 <header class="site-header">
   <div class="container">
     <div class="site-header-logo">
-      <a class="sr-only" href="/" title="Go to the {{ .Site.Title }} home page" tabindex="0">
-        Go to the {{ .Site.Title }} home page
-      </a>
+      {{ if eq .IsHome false }}
+        <a class="sr-only" href="/" title="Go to the {{ .Site.Title }} home page" tabindex="0">
+          Go to the {{ .Site.Title }} home page
+        </a>
+      {{ end }}
       <a aria-hidden="true" href="/" title="Go to the home page" tabindex="0">
         {{ if .Site.Data.organization.logos.header_logo.image }}
             {{ $imageParams := (dict "page" .Page "site" .Site "url" .Site.Data.organization.logos.header_logo.image "transform" false ) }}
