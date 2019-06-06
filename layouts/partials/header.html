@@ -20,16 +20,12 @@
       </a>
       <a aria-hidden="true" href="/" title="Go to the home page" tabindex="0">
         {{ if .Site.Data.organization.logos.header_logo.image }}
-        <figure>
-          <div class="img-container">
             {{ $imageParams := (dict "page" .Page "site" .Site "url" .Site.Data.organization.logos.header_logo.image "transform" false ) }}
             <img 
               class="img-fluid" 
               src="{{ partial "utilities/image-url" $imageParams }}" 
               alt="" 
             />
-          </div>
-        </figure>
         {{ else }}
           {{ .Site.Data.organization.organization_name }}        
         {{ end }}
