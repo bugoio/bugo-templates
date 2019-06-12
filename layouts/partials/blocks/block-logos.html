@@ -23,7 +23,8 @@
             {{ partial "utilities/image-url" ( dict "page" $.Page "url" . "transform" "c_fill,e_unsharp_mask:100,g_faces:center,h_700,w_1440" ) | safeURL }} 1440w
           "
           title="Logo"
-          alt="{{ $alt }}" 
+          alt="{{ $alt }}"
+          role="presentation"
         />
       </div>
     {{ end }}
