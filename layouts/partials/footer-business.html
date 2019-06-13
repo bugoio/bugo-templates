@@ -26,9 +26,9 @@
           {{ end }}
         </div>
         <div>
-          <ul class="list-inline locations">
+          <ul class="list-inline locations" role="list">
             {{ range .Site.Data.organization.contact_information.locations }}
-            <li class="list-inline-item">
+            <li class="list-inline-item" role="listitem" tabindex="0">
               <h5 class="location-name">{{ .location_name }}</h5>
               {{ .address_1 }}{{ with .address_2 }}, {{ . }}{{ end }}<br />
               {{ .city }}, {{ substr .state -1 2 }} {{ .zip_code }}<br />
