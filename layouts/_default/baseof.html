@@ -40,9 +40,6 @@
       {{ block "main" . }}{{ end }}
       {{ block "aside" . }}{{ end }}
     </div>
-    <div id="bottom" class="skip-link-top-container">
-      <a class="sr-only sr-only-focusable skip-link" aria-label="Go to the top of this page" href="#top" tabindex="0">Go to the top of this page.</a>
-    </div>        
     {{ if .Site.Data.config.layout_options.footer.footer_template }}
       {{/* use footer template system */}}
       {{ $footer := printf "footer-%s" .Site.Data.config.layout_options.footer.footer_template | urlize }}
