@@ -12,7 +12,7 @@
     {{ $page := .page }}
     {{ $site := .site }}
     {{ range .block.columns }}
-    <div id="column-{{ .title  | anchorize }}" class="item {{ .color_scheme | urlize }}">
+    <div id="column-{{ .title  | anchorize }}" class="item {{ .color_scheme | urlize }}" role="region" tabindex="0">
       {{ partial "utilities/process-shortcodes" (dict "page" $page "site" $site "content" .content) | markdownify }}
     </div>
     {{ end }}
