@@ -9,8 +9,8 @@
    */}}
 
 {{ define "main" }}
-<main id="main">
-  <article class="main-article">
+<main id="main" tabindex="0">
+  <article class="main-article" tabindex="0">
     <!-- <header>
       <h1>{{ .Title }}</h1>
     </header> -->
@@ -25,8 +25,8 @@
 {{ end }}
 
 {{ define "aside" }}
-<aside class="sidebar">
-  <div class="widget widget-profile-contact-info">
+<aside class="sidebar" tabindex="0">
+  <div class="widget widget-profile-contact-info" tabindex="0">
     {{ $page := .Page }}
     {{ with .Page.Params.profile.email_addresses }}
     {{ partial "components/email-list" (dict "page" $page "email_addresses" . ) }}

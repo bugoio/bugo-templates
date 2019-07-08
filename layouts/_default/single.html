@@ -9,8 +9,8 @@
    */}}
 
 {{ define "main" }}
-<main id="main">
-  <article class="main-article">
+<main id="main" tabindex="0">
+  <article class="main-article" tabindex="0">
     <header>
       <h1>{{ .Title }}</h1>
     </header>
@@ -30,7 +30,7 @@
 {{ end }}
 
 {{ define "aside" }}
-<aside class="sidebar">
+<aside class="sidebar" tabindex="0">
   {{ partial "widgets/widgets" (dict "page" .Page "site" .Site "content" .Site.Data.config.sidebar_widgets.widgets ) }}
 </aside>
 {{ end }}

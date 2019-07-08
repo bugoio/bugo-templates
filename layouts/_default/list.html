@@ -8,29 +8,30 @@
    */}}
 
    {{ define "main" }}
-   <main id="main" class="">
+   <main id="main" class="" tabindex="0" aria-label="{{ .Title }}">
      <h1>{{ .Title }}</h1>
      {{ .Content }}
      {{ if gt (len .Data.Pages) 0 }}
      {{ $site := .Site }}
-      <p class="post-count">{{ len .Data.Pages }} {{ .Section | pluralize }} found. </p>
+      <p class="post-count" tabindex="0">{{ len .Data.Pages }} {{ .Section | pluralize }} found. </p>
+        <div class="row" data-aos="slide-right" role="list" tabindex="0" aria-label="{{ .Title }} List">
         {{ range $index, $page := .Data.Pages }}
         {{ $page := . }}
-        <div class="row mb-5" data-aos="slide-right">
-          <div class="col-12 order-2 order-md-1 {{ with $page.Section }}{{ . | urlize }}-item{{ end }}">
+          <div class="col-12 order-2 mb-5 order-md-1 {{ with $page.Section }}{{ . | urlize }}-item{{ end }}" role="listitem" tabindex="0" aria-label="{{ .Title}}">
             {{ partial "components/thumbnail" (dict "page" . "site" $site ) }}
-            <article>
+            <article tabindex="-1">
               <header>
                 <time>{{ .Date.Format "January _2, 2006" }}</time>
-                <h2><a href="{{ .Permalink | relURL }}">{{ .Title}}</a></h2>
+                <h2><a href="{{ .Permalink | relURL }}" tabindex="-1">{{ .Title}}</a></h2>
               </header>
-              <div>
+              <div tabindex="0" aria-label="summary">
                 {{ .Summary | markdownify }}
               </div>
             </article>
+            <a class="sr-only sr-only-focusable" href="{{ .Permalink | relURL }}" tabindex="0">Go to the full article</a>
           </div>
-        </div>
         {{ end }}
+      </div>
       <div class="pagination mt-4">
         {{ partial "pagination.html" . }}
       </div>
@@ -40,7 +41,7 @@
 
    {{ define "aside" }}
     {{ if .Params.show_sidebar }}
-     <aside class="sidebar">
+     <aside class="sidebar" tabindex="0">
         {{ partial "widgets/widgets" (dict "page" .Page "site" .Site "content" .Site.Data.config.sidebar_widgets.widgets ) }}
      </aside>
      {{ end }}

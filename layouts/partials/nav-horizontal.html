@@ -9,7 +9,7 @@
 {{ $currentPage := . }}
 {{ $location := .Scratch.Get "location" }}
 {{ $display := .Scratch.Get "datadisplay" }}
-<nav class="nav-horizontal nav-{{ $location }}">
+<nav class="nav-horizontal nav-{{ $location }}" role="navigation" aria-label="{{ $location }}">
   <ul class="list-inline">
     {{ $scratch := .Scratch }}
     {{ range $index, $menuItem := .Scratch.Get "menu" }}

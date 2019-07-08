@@ -20,18 +20,20 @@
           Go to the {{ .Site.Title }} home page
         </a>
       {{ end }}
-      <a aria-hidden="true" href="/" title="Go to the home page" tabindex="0">
-        {{ if .Site.Data.organization.logos.header_logo.image }}
-            {{ $imageParams := (dict "page" .Page "site" .Site "url" .Site.Data.organization.logos.header_logo.image "transform" false ) }}
-            <img 
-              class="img-fluid" 
-              src="{{ partial "utilities/image-url" $imageParams }}" 
-              alt="" 
-            />
-        {{ else }}
-          {{ .Site.Data.organization.organization_name }}        
-        {{ end }}
-      </a>
+      <div>
+        <a href="/" title="Go to the home page" tabindex="0">
+          {{ if .Site.Data.organization.logos.header_logo.image }}
+              {{ $imageParams := (dict "page" .Page "site" .Site "url" .Site.Data.organization.logos.header_logo.image "transform" false ) }}
+              <img 
+                class="img-fluid" 
+                src="{{ partial "utilities/image-url" $imageParams }}" 
+                alt="" 
+              />
+          {{ else }}
+            {{ .Site.Data.organization.organization_name }}        
+          {{ end }}
+        </a>
+      </div>
     </div>
     <div class="nav-main-container d-none d-lg-block">
       {{ .Scratch.Set "location" "main" }}
